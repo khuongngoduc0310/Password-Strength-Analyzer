@@ -1,4 +1,5 @@
 
+const GUESS_SPEED = 11*Math.log2(10); //log2(100 billion) 
 function hasLower(password){
     for (let i in password){
         if (password.charCodeAt(i) >= 97 && password.charCodeAt(i) <= 122)
@@ -27,4 +28,9 @@ function entropy(password){
     range = hasNumber(password) ? range + 10 : range;
     return Math.log2(range)*(password.length);
 }
+function secondsToSolve(password){
+    let passEntropy = entropy(password);
+    return Math.pow(2,passEntropy-GUESS_SPEED);
+}
 console.log(entropy("ABCd11"));
+console.log(secondsToSolve("1254hfaD"));
