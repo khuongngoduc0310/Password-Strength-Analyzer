@@ -1,7 +1,7 @@
 
 const GUESS_SPEED = 11*Math.log2(10); //log2(100 billion) 
-const normalValidation = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
-const password = "ExamplePassword123abcdefghijklmnopqrstuvwxyz@@##";
+const normalValidation = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^~])[A-Za-z\d@$!%*?&#^~]{8,}$/);
+let password = "ExamplePassword123abcdefghijklmnopqrstuvwxyz@@##";
 password = password.trim();
 
 function basicTest(password)
@@ -48,19 +48,26 @@ function hasNumber(password){
     }
     return false;
 }
+function hasSpecial(password){
+    let specialRegExp = /[@$!%*?&#^~]/ //10 common symbols
+    return specialRegExp.test(password);
+}
 function entropy(password){
     let range = 0;
     range = hasLower(password) ? range + 24 : range;
     range = hasUpper(password) ? range + 24 : range;
     range = hasNumber(password) ? range + 10 : range;
+    range = hasSpecial(password) ? range + 10 : range;
     return Math.log2(range)*(password.length);
 }
+
 function secondsToSolve(password){
     let passEntropy = entropy(password);
     return Math.pow(2,passEntropy-GUESS_SPEED);
 }
 
 //Test
+console.log(hasSpecial(password));
 console.log(entropy("ABCd11"));
 console.log(secondsToSolve("1254hfaD"));
 console.log(repetitiveTest(password))
