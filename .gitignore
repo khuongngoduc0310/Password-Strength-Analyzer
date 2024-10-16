@@ -1,0 +1,83 @@
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+__pycache__/
+*.so
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.pkl
+__pycache__/
+local_settings.py
+
+# Media and static files
+/media
+/staticfiles
+
+# Django migrations
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Testing
+coverage.xml
+nosetests.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.env.*
+.venv/
+.venv.*
+
+# PyCharm
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# MySQL database dumps
+*.sql
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*~
+
+# Security keys or configuration
+secrets.json
