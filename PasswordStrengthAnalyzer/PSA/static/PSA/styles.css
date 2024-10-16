@@ -1,0 +1,252 @@
+/* Basic reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light grey background */
+}
+
+header {
+    background-color: #2C3E50; /* Dark blue */
+    padding: 10px 0;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a drop shadow */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 60px; /* Adjust the size of your logo */
+    margin-right: 10px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links li a.active,
+.nav-links li a:hover {
+    background-color: #1A252F; /* Darker shade of blue */
+}
+
+/* Container adjustments */
+.container {
+    max-width: 800px; /* Keeps the overall container width */
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Headings */
+h1 {
+    color: #2C3E50; /* Matching dark blue */
+    text-align: center; /* Center the heading */
+    font-size: 2rem; /* Adjusted font size */
+    margin-bottom: 20px;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 20px; /* Increased margin for better spacing */
+    width: 95%; /* Slightly wider to match the progress bar */
+    margin: 0 auto 20px auto; /* Center the input group inside the fieldset */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333; /* Darker color for label */
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%; /* Ensure inputs take full width */
+    padding: 12px; /* Increased padding */
+    border: 1px solid #b0b0b0; /* Medium grey */
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Smooth transition */
+    font-size: 1rem; /* Slightly larger font size */
+    box-sizing: border-box; /* Ensures padding doesn't increase overall input width */
+}
+
+.input-group input:focus {
+    border-color: #2C3E50; /* Dark blue */
+    box-shadow: 0 0 5px rgba(44, 62, 80, 0.5); /* Softer dark blue glow */
+    outline: none;
+}
+
+/* Password wrapper styling */
+.password-wrapper {
+    position: relative; /* Enables absolute positioning for the eye icon */
+    width: 100%; /* Make sure the password wrapper fits the input-group */
+}
+
+.password-wrapper input {
+    width: 100%; /* Make sure input takes full width */
+    padding-right: 40px; /* Provide space for the eye icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px; /* Position the eye icon inside the input */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666; /* Grey color */
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #2C3E50; /* Dark blue on hover */
+}
+
+/* Feedback and Progress Bar */
+#feedback {
+    margin-top: 15px;
+    width: 95%; /* Ensure the feedback section matches the input fields' width */
+    margin: 0 auto; /* Center it within the container */
+}
+
+#strengthMessage {
+    font-weight: bold;
+    margin-bottom: 10px; /* Spacing between strength message and progress bar */
+}
+
+.progress-bar {
+    width: 100%; /* Ensure progress bar takes the full width of the parent container */
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-top: 5px;
+    height: 15px; /* Increased height */
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background-color: red;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+/* Fieldsets and Legends */
+fieldset {
+    border: 1px solid #b0b0b0; /* Grey border */
+    border-radius: 5px;
+    padding: 15px; /* Added padding */
+    margin-bottom: 20px; /* Space between fieldsets */
+}
+
+legend {
+    padding: 0 10px;
+    font-weight: bold;
+    color: #2C3E50; /* Matching dark blue */
+    font-size: 1.1rem; /* Adjust font size */
+}
+
+button.submit-button {
+    flex: 1; /* Make the button take equal space */
+    padding: 12px 20px;
+    background-color: #2C3E50; /* Dark blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 3D effect */
+    font-size: 1rem;
+}
+
+button.submit-button:hover {
+    background-color: #1A252F; /* Slightly darker blue on hover */
+    transform: translateY(-2px); /* Lifting effect */
+}
+
+/* Password Display Styling */
+.password-display {
+    display: flex; /* Display elements side-by-side */
+    align-items: center; /* Center vertically */
+    margin-top: 20px;
+    gap: 10px; /* Space between the text and the password box */
+    font-weight: bold;
+}
+
+/* Container adjustments */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Styling for the generator section */
+.generator-section {
+    display: flex; /* Use flex to line up elements horizontally */
+    gap: 10px; /* Space between the button and the password box */
+    align-items: center; /* Vertically center align items */
+    justify-content: center; /* Center the items in the fieldset */
+    margin-top: 20px; /* Add some space at the top */
+}
+
+/* Styling for the generated password box */
+.generated-password-box {
+    flex: 2; /* Make the password box take double the space of the button */
+    border: 1px solid #b0b0b0; /* Medium grey */
+    padding: 10px;
+    background-color: #f9f9f9; /* Slightly off-white */
+    min-width: 200px; /* Minimum width for the password box */
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a slight shadow */
+    word-break: break-all; /* Ensures long passwords wrap inside the box */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #2C3E50; /* Matching dark blue */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Adding a slight shadow above */
+}
+
+footer p {
+    margin: 0; /* Remove any default margin */
+}
+
+
+
