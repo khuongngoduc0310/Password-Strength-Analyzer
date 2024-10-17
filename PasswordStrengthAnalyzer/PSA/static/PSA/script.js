@@ -1,3 +1,16 @@
+function checkCommonPassword(password) {
+ const url = `/checkPassword/${password}/`;
+ console.log(url);
+ fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const result = data.exists ? "Password is a common password" : "Password is not common";
+            document.getElementById('checkCommon').textContent = result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 // Enhanced Password strength checker with no switch statements
 function checkPasswordStrength() {
     const password = document.getElementById('password').value;
@@ -6,18 +19,22 @@ function checkPasswordStrength() {
     const progressBar = document.getElementById('progress'); // Reference to the progress bar
     const entropyPoints = document.getElementById('entropyPoints');
 
+    checkCommonPassword(password);
     let strength = 0;
     let feedback = [];
 
     strength = entropy(password);
+
     if (repetitiveTest(password) > 3 || continuousTest(password) > 3 || !basicTest(password)) strength = 0;
-    entropyPoints.textContent = strength;
+    entropyPoints.textContent = `Entropy points: ${strength}`;
+
     strength = Math.floor(strength/20);
+
     if (strength >= 4) strength = 4;
     console.log(strength);
     // Define messages, colors, and progress widths based on strength levels
     const strengthLevels = [
-        { text: 'Very Weak', color: 'red', width: '20%', suggestion: 'Add more characters and use uppercase letters, numbers, and symbols.' },
+        { text: 'Very Weak', color: 'red', width: '20%', suggestion: 'Add more characters and use uppercase letters, numbers, and symbols or you password has continous pattern.' },
         { text: 'Weak', color: 'orange', width: '40%', suggestion: 'Include uppercase letters, numbers, and symbols.' },
         { text: 'Moderate', color: 'yellow', width: '60%', suggestion: 'Try using more unique characters and avoid sequences.' },
         { text: 'Strong', color: 'lightgreen', width: '80%', suggestion: '' },

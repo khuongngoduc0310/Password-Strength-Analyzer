@@ -1,6 +1,6 @@
 
 const GUESS_SPEED = 11*Math.log2(10); //log2(100 billion) 
-const normalValidation = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^~])[A-Za-z\d@$!%*?&#^~]{8,}$/);
+const normalValidation = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$&+,:;=?@#|'<>.^*()%!\-\[\]\{\}\\\/~`_])[A-Za-z\d$&+,:;=?@#|'<>.^*()%!\-\[\]\{\}\\\/~`_]{8,}$/); //updated
 //let password = "ExamplePassword123abcdefghijklmnopqrstuvwxyz@@##";
 // password = password.trim();
 
@@ -8,6 +8,7 @@ function basicTest(password)
 {
     return normalValidation.test(password);
 };
+
 function repetitiveTest(password){
     let count = 1;
     let max = 1;
@@ -49,7 +50,7 @@ function hasNumber(password){
     return false;
 }
 function hasSpecial(password){
-    let specialRegExp = /[@$!%*?&#^~]/ //10 common symbols
+    let specialRegExp = /[$&+,:;=?@#|'<>.^*()%!\-\[\]\{\}\\\/~`_]/ //30 common symbols
     return specialRegExp.test(password);
 }
 function entropy(password){
@@ -57,7 +58,7 @@ function entropy(password){
     range = hasLower(password) ? range + 24 : range;
     range = hasUpper(password) ? range + 24 : range;
     range = hasNumber(password) ? range + 10 : range;
-    range = hasSpecial(password) ? range + 10 : range;
+    range = hasSpecial(password) ? range + 31 : range; // updated to 31 symbols
     return Math.log2(range)*(password.length);
 }
 

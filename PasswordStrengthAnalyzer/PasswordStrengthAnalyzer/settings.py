@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'PSA',
 ]
 
@@ -74,16 +77,28 @@ WSGI_APPLICATION = 'PasswordStrengthAnalyzer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',  # Use 'mysql' for MySQL
+#         'NAME': 'password',                   # Name of your database
+#         'USER': 'root',                       # Your MySQL username
+#         'PASSWORD': 'Ditmemay@0310',               # Your MySQL password
+#         'HOST': 'localhost',                    # Set to 'localhost' or your MySQL host
+#         'PORT': '3306',                         # Default MySQL port
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Use 'mysql' for MySQL
-        'NAME': 'password',                   # Name of your database
-        'USER': 'root',                       # Your MySQL username
-        'PASSWORD': 'Ditmemay@0310',               # Your MySQL password
-        'HOST': 'localhost',                    # Set to 'localhost' or your MySQL host
-        'PORT': '3306',                         # Default MySQL port
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
+
 
 
 # Password validation
