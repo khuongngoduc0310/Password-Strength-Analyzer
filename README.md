@@ -45,11 +45,15 @@ Your command prompt should show (env) before your current directory path.
   DATABASE_PORT=5432
   ```
 ## Make migrations and run
-1. **Make migration in Django**
+1. **Move to project location**
+```sh
+   cd ./PasswordStrengthAnalyzer
 ```
+3. **Make migration in Django**
+```sh
   python manage.py migrate
 ```
-2. **Run the server**
-```
+3. **Run the server**
+```sh
   python manage.py runserver
 ```
