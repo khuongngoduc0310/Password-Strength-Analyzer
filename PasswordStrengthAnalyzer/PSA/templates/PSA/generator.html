@@ -29,7 +29,7 @@
     <main class="container">
         <h1>Password Generator</h1>
         <fieldset>
-            <legend>Generate a Strong Password</legend>
+            <legend>Generate a Strong Random Password</legend>
             
             <!-- Flex container for button and generated password display -->
             <div class="generator-section">
@@ -38,9 +38,23 @@
             </div>
             
         </fieldset>
+        <fieldset>
+            <legend>Generate a Strong Memorable Password</legend>
+            
+            <!-- Flex container for button and generated password display -->
+            <div class="generator-section">
+                <button id="generatememorableBtn" class="submit-button">Generate Password</button>
+                <div id="generatedmemorablePassword" class="generated-password-box">---</div>
+            </div>
+            
+        </fieldset>
     </main>
+    <script>
+        var jsonData = JSON.parse('{{ common_data | escapejs }}');
+    </script>
     <script src="{% static 'PSA/functions.js' %}"></script>
     <script src="{% static 'PSA/script.js' %}"></script>
+    <script src="{% static 'PSA/generator.js' %}"></script>
 </body>
 </html>
 

@@ -1,3 +1,18 @@
+function timeToSolve(password){
+    let seconds = secondsToSolve(password);
+    if (seconds < 60) return seconds + " seconds";
+    let minutes = Math.floor(seconds/60);
+    if (minutes < 60) return minutes + " minutes";
+    let hours = Math.floor(seconds/360);
+    if (hours < 24) return hours + " hours";
+    let days = Math.floor(hours/24);
+    if (days < 30) return days + " days"
+    let months = Math.floor(days/30);
+    if (months < 12) return months + " months"
+    let years = Math.floor(months/12);
+    return years + " years"
+}
+
 function checkCommonPassword(password) {
  const url = `/checkPassword/${password}/`;
  console.log(url);
@@ -18,6 +33,7 @@ function checkPasswordStrength() {
     const suggestions = document.getElementById('suggestions');
     const progressBar = document.getElementById('progress'); // Reference to the progress bar
     const entropyPoints = document.getElementById('entropyPoints');
+    const timeToSolveElement = document.getElementById('timeToSolve');
 
     checkCommonPassword(password);
     let strength = 0;
@@ -54,20 +70,11 @@ function checkPasswordStrength() {
     // Update the progress bar
     progressBar.style.width = currentLevel.width;
     progressBar.style.backgroundColor = currentLevel.color;
+
+    timeToSolveElement.textContent = "It takes " + timeToSolve(password) + " to solve by bruteforce";
+
 }
 
-// Password generation logic
-document.getElementById('generateBtn')?.addEventListener('click', generatePassword);
-
-function generatePassword() {
-    const length = 12; // You can allow the user to choose the length
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
-    let password = "";
-    for (let i = 0; i < length; i++) {
-        password += charset.charAt(Math.floor(Math.random() * charset.length));
-    }
-    document.getElementById('generatedPassword').textContent = password;
-}
 
 // Password visibility toggle logic
 document.getElementById('togglePassword').addEventListener('click', function () {
