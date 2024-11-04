@@ -1,5 +1,5 @@
 
-const GUESS_SPEED = 11*Math.log2(10); //log2(100 billion) 
+const GUESS_SPEED = 11*Math.log2(10); //log2(100 billion)
 const normalValidation = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$&+,:;=?@#|'<>.^*()%!\-\[\]\{\}\\\/~`_])[A-Za-z\d$&+,:;=?@#|'<>.^*()%!\-\[\]\{\}\\\/~`_]{8,}$/); //updated
 //let password = "ExamplePassword123abcdefghijklmnopqrstuvwxyz@@##";
 // password = password.trim();
@@ -55,8 +55,8 @@ function hasSpecial(password){
 }
 function entropy(password){
     let range = 0;
-    range = hasLower(password) ? range + 24 : range;
-    range = hasUpper(password) ? range + 24 : range;
+    range = hasLower(password) ? range + 26: range;
+    range = hasUpper(password) ? range + 26 : range;
     range = hasNumber(password) ? range + 10 : range;
     range = hasSpecial(password) ? range + 31 : range; // updated to 31 symbols
     return Math.log2(range)*(password.length);
@@ -64,7 +64,7 @@ function entropy(password){
 
 function secondsToSolve(password){
     let passEntropy = entropy(password);
-    return Math.pow(2,passEntropy-GUESS_SPEED);
+    return Math.pow(2,passEntropy-GUESS_SPEED); // 2^(e-log2(1bil)) // 2^range**length/1billion
 }
 
 //Test
