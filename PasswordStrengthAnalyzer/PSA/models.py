@@ -5,7 +5,7 @@ class Common_Passwords(models.Model):
     content = models.TextField()
 
     def __str__(self):
-            return self.content
+            return self.content      
 
 # class PasswordAnalytics(models.Model):
 #     total_passwords_analyzed = models.IntegerField(default=0)

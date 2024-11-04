@@ -1,3 +1,5 @@
+let checkedPassword = {"": false};
+
 function timeToSolve(password){
     let seconds = secondsToSolve(password);
     if (seconds < 60) return seconds + " seconds";
@@ -13,37 +15,71 @@ function timeToSolve(password){
     return years + " years"
 }
 
-function checkCommonPassword(password) {
- const url = `/checkPassword/${password}/`;
- console.log(url);
- fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const result = data.exists ? "Password is a common password" : "Password is not common";
-            document.getElementById('checkCommon').textContent = result;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+async function checkCommonPassword(password) {
+    const url = `/checkPassword/${password}/`;
+    if (checkedPassword[password] != undefined) return checkedPassword[password];
+    if (password.length > 0) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+            const data = await response.json();
+            checkedPassword[password] = data.exists;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    const result = checkedPassword[password] ? "Password is a common password" : "Password is not common";
+    document.getElementById('checkCommon').textContent = result;
+    return checkedPassword[password];
 }
-// Enhanced Password strength checker with no switch statements
-function checkPasswordStrength() {
+
+let debounceTimer;
+async function checkPasswordStrengthWithDebounce(){
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(checkPasswordStrength,100);
+}
+async function checkPasswordStrength() {
     const password = document.getElementById('password').value;
-    const strengthIndicator = document.getElementById('strengthIndicator');
-    const suggestions = document.getElementById('suggestions');
-    const progressBar = document.getElementById('progress'); // Reference to the progress bar
+    // const strengthIndicator = document.getElementById('strengthIndicator');
+    // const suggestions = document.getElementById('suggestions');
+    // const progressBar = document.getElementById('progress');
     const entropyPoints = document.getElementById('entropyPoints');
     const timeToSolveElement = document.getElementById('timeToSolve');
+    const fullName = document.getElementById("fullName").value.trim();
+    const username = document.getElementById("username").value.trim();
 
-    checkCommonPassword(password);
+    //List of score
+    const lengthScore = password.length >= 12 ? 100 : (password.length / 12) * 100;
+    let varietyScore = 0;
+    let commonPasswordScore = await checkCommonPassword(password) ? 0 : 100;
+    let patternScore = 100;
+    let leakedInformationScore = 100;
+
+    //Check if there is name in the password
+    for (let name of fullName.split(' ')){
+       if (name.length > 0 && password.toLowerCase().indexOf(name.toLowerCase()) != -1) leakedInformationScore = 0;
+    }
+    if (username.length > 0 && password.toLowerCase().indexOf(username.toLowerCase()) != -1) leakedInformationScore = 0;
+
+    console.log(password + " and " + leakedInformationScore);
+    // Calculate variety score
+    if (hasLower(password)) varietyScore+=25;
+    if (hasNumber(password)) varietyScore+=25;
+    if (hasUpper(password)) varietyScore+=25;
+    if (hasSpecial(password)) varietyScore+=25;
+
+    // Calculate patternScore
+    if (repetitiveTest(password) >= 3) patternScore -=50;
+    if (continuousTest(password) >= 3) patternScore -=50;
+
+    // checkCommonPassword(password);
     let strength = 0;
-    let feedback = [];
 
     strength = entropy(password);
 
     if (repetitiveTest(password) > 3 || continuousTest(password) > 3 || !basicTest(password)) strength = 0;
-    entropyPoints.textContent = `Entropy points: ${strength}`;
-
+    entropyPoints.textContent = `Entropy points: ${entropy(password)}`;
+    /*
     strength = Math.floor(strength/20);
 
     if (strength >= 4) strength = 4;
@@ -70,9 +106,14 @@ function checkPasswordStrength() {
     // Update the progress bar
     progressBar.style.width = currentLevel.width;
     progressBar.style.backgroundColor = currentLevel.color;
+    */
+    updateProgressBar('lengthProgress', lengthScore, 'lengthCheck');
+    updateProgressBar('varietyProgress', varietyScore, 'varietyCheck');
+    updateProgressBar('commonPasswordProgress', commonPasswordScore, 'commonPasswordCheck');
+    updateProgressBar('patternProgress', patternScore, 'patternCheck');
+    updateProgressBar('leakedInformationProgress', leakedInformationScore, 'leakedInformationCheck');
 
     timeToSolveElement.textContent = "It takes " + timeToSolve(password) + " to solve by bruteforce";
-
 }
 
 
@@ -91,3 +132,30 @@ document.getElementById('togglePassword').addEventListener('click', function () 
         icon.classList.add('fa-eye');
     }
 });
+
+function updateProgressBar(element, value, labelElement) {
+    // element.value = value;
+    // labelElement.textContent = Math.round(value); // Display the score as an integer
+
+    let elementProgess = document.getElementById(element);
+    let elementCheck = document.getElementById(labelElement);
+
+    elementProgess.value = value;
+    elementCheck.textContent = Math.round(value);
+
+    // Remove any existing color classes
+    elementProgess.classList.remove('progress-red', 'progress-orange', 'progress-yellow', 'progress-greenyellow', 'progress-green');
+
+    // Apply color based on score range
+    if (value <= 20) {
+        elementProgess.classList.add('progress-red');
+    } else if (value <= 40) {
+        elementProgess.classList.add('progress-orange');
+    } else if (value <= 60) {
+        elementProgess.classList.add('progress-yellow');
+    } else if (value <= 80) {
+        elementProgess.classList.add('progress-greenyellow');
+    } else {
+        elementProgess.classList.add('progress-green');
+    }
+}

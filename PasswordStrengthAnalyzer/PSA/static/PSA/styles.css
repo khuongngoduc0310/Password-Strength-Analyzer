@@ -6,6 +6,7 @@ body, html {
     background-color: #f4f4f4; /* Light grey background */
 }
 
+
 header {
     background-color: #2C3E50; /* Dark blue */
     padding: 10px 0;
@@ -233,6 +234,15 @@ button.submit-button:hover {
     word-break: break-all; /* Ensures long passwords wrap inside the box */
 }
 
+
+/* Wrapper takes full screen height */
+.wrapper {
+    flex-direction: column;
+    min-height: 96vh;
+}
+
+
+
 /* Footer Styling */
 footer {
     background-color: #2C3E50; /* Matching dark blue */
@@ -246,6 +256,179 @@ footer {
 
 footer p {
     margin: 0; /* Remove any default margin */
+}
+
+
+.evaluation-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.evaluation-item label {
+    flex: 1;
+}
+
+.evaluation-item progress {
+    flex: 3;
+    width: 100%;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.evaluation-item span {
+    width: 50px;
+    text-align: right;
+}
+
+/* Styling for progress bars */
+progress::-webkit-progress-bar {
+    background-color: #f4f4f4; /* Light grey background for progress bar */
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+    border-radius: 5px;
+    transition: background-color 0.3s ease, width 0.3s ease;
+}
+
+/* JavaScript-controlled progress bar colors for gradient effect */
+.low-score {
+    background: linear-gradient(to right, red, #ffb300); /* Red to yellow */
+}
+
+.medium-score {
+    background: linear-gradient(to right, #ffb300, #ffd700); /* Yellow */
+}
+
+.high-score {
+    background: linear-gradient(to right, #66bb6a, green); /* Light green to green */
+}
+
+/* Background Gradient for Body */
+body {
+    background: linear-gradient(to bottom, #2C3E50, #34495E); /* Dark blue gradient */
+}
+
+/* Enhanced Button Hover */
+button.submit-button:hover {
+    background-color: #1A252F;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+}
+
+/* Custom Password Strength Gradient */
+.low-score {
+    background: linear-gradient(to right, #ff4e42, #ffb300);
+}
+
+.medium-score {
+    background: linear-gradient(to right, #ffb300, #ffd700);
+}
+
+.high-score {
+    background: linear-gradient(to right, #66bb6a, #2e7d32);
+}
+
+/* Improved Mobile Responsiveness */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 30px auto;
+    }
+
+    .navbar .logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .generator-section {
+        flex-direction: column;
+    }
+}
+
+/* Enhanced Password Display Box */
+.generated-password-box {
+    flex: 2;
+    border: 2px solid #2C3E50; /* Dark blue */
+    background-color: #e8f0fe; /* Light blue to make it stand out */
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.evaluation-item progress.progress-red::-webkit-progress-value {
+    background-color: red;
+}
+
+.evaluation-item progress.progress-orange::-webkit-progress-value {
+    background-color: orange;
+}
+
+.evaluation-item progress.progress-yellow::-webkit-progress-value {
+    background-color: yellow;
+}
+
+.evaluation-item progress.progress-greenyellow::-webkit-progress-value {
+    background-color: yellowgreen;
+}
+
+.evaluation-item progress.progress-green::-webkit-progress-value {
+    background-color: green;
+}
+
+/* For other browsers */
+.evaluation-item progress.progress-red::-moz-progress-bar {
+    background-color: red;
+}
+
+.evaluation-item progress.progress-orange::-moz-progress-bar {
+    background-color: orange;
+}
+
+.evaluation-item progress.progress-yellow::-moz-progress-bar {
+    background-color: yellow;
+}
+
+.evaluation-item progress.progress-greenyellow::-moz-progress-bar {
+    background-color: yellowgreen;
+}
+
+.evaluation-item progress.progress-green::-moz-progress-bar {
+    background-color: green;
+}
+
+/* Feedback Dropdown Styling */
+.dropdown-feedback {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9; /* Light background */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow */
+    padding: 15px;
+    width: 100%;
+}
+
+.dropdown-feedback ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-feedback li {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2C3E50; /* Dark blue */
+}
+
+.dropdown-feedback li:last-child {
+    margin-bottom: 0;
 }
 
 
