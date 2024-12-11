@@ -1,20 +1,24 @@
 /* Basic reset */
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Light grey background */
+    background-color: #f4f4f4;
+    /* Light grey background */
 }
 
 
 header {
-    background-color: #2C3E50; /* Dark blue */
+    background-color: #2C3E50;
+    /* Dark blue */
     padding: 10px 0;
     color: white;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a drop shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Adding a drop shadow */
 }
 
 .navbar {
@@ -31,7 +35,8 @@ header {
 }
 
 .logo-img {
-    width: 60px; /* Adjust the size of your logo */
+    width: 60px;
+    /* Adjust the size of your logo */
     margin-right: 10px;
 }
 
@@ -52,12 +57,14 @@ header {
 
 .nav-links li a.active,
 .nav-links li a:hover {
-    background-color: #1A252F; /* Darker shade of blue */
+    background-color: #1A252F;
+    /* Darker shade of blue */
 }
 
 /* Container adjustments */
 .container {
-    max-width: 800px; /* Keeps the overall container width */
+    max-width: 800px;
+    /* Keeps the overall container width */
     margin: 50px auto;
     background-color: #fff;
     padding: 30px;
@@ -68,85 +75,111 @@ header {
 
 /* Headings */
 h1 {
-    color: #2C3E50; /* Matching dark blue */
-    text-align: center; /* Center the heading */
-    font-size: 2rem; /* Adjusted font size */
+    color: #2C3E50;
+    /* Matching dark blue */
+    text-align: center;
+    /* Center the heading */
+    font-size: 2rem;
+    /* Adjusted font size */
     margin-bottom: 20px;
 }
 
 /* Input Groups */
 .input-group {
-    margin-bottom: 20px; /* Increased margin for better spacing */
-    width: 95%; /* Slightly wider to match the progress bar */
-    margin: 0 auto 20px auto; /* Center the input group inside the fieldset */
+    margin-bottom: 20px;
+    /* Increased margin for better spacing */
+    width: 95%;
+    /* Slightly wider to match the progress bar */
+    margin: 0 auto 20px auto;
+    /* Center the input group inside the fieldset */
 }
 
 .input-group label {
     display: block;
     margin-bottom: 5px;
-    color: #333; /* Darker color for label */
+    color: #333;
+    /* Darker color for label */
     font-weight: bold;
 }
 
 .input-group input {
-    width: 100%; /* Ensure inputs take full width */
-    padding: 12px; /* Increased padding */
-    border: 1px solid #b0b0b0; /* Medium grey */
+    width: 100%;
+    /* Ensure inputs take full width */
+    padding: 12px;
+    /* Increased padding */
+    border: 1px solid #b0b0b0;
+    /* Medium grey */
     border-radius: 5px;
-    transition: all 0.3s ease; /* Smooth transition */
-    font-size: 1rem; /* Slightly larger font size */
-    box-sizing: border-box; /* Ensures padding doesn't increase overall input width */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+    font-size: 1rem;
+    /* Slightly larger font size */
+    box-sizing: border-box;
+    /* Ensures padding doesn't increase overall input width */
 }
 
 .input-group input:focus {
-    border-color: #2C3E50; /* Dark blue */
-    box-shadow: 0 0 5px rgba(44, 62, 80, 0.5); /* Softer dark blue glow */
+    border-color: #2C3E50;
+    /* Dark blue */
+    box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+    /* Softer dark blue glow */
     outline: none;
 }
 
 /* Password wrapper styling */
 .password-wrapper {
-    position: relative; /* Enables absolute positioning for the eye icon */
-    width: 100%; /* Make sure the password wrapper fits the input-group */
+    position: relative;
+    /* Enables absolute positioning for the eye icon */
+    width: 100%;
+    /* Make sure the password wrapper fits the input-group */
 }
 
 .password-wrapper input {
-    width: 100%; /* Make sure input takes full width */
-    padding-right: 40px; /* Provide space for the eye icon */
+    width: 100%;
+    /* Make sure input takes full width */
+    padding-right: 40px;
+    /* Provide space for the eye icon */
 }
 
 .toggle-password {
     position: absolute;
-    right: 10px; /* Position the eye icon inside the input */
+    right: 10px;
+    /* Position the eye icon inside the input */
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #666; /* Grey color */
+    color: #666;
+    /* Grey color */
     transition: color 0.3s ease;
 }
 
 .toggle-password:hover {
-    color: #2C3E50; /* Dark blue on hover */
+    color: #2C3E50;
+    /* Dark blue on hover */
 }
 
 /* Feedback and Progress Bar */
 #feedback {
     margin-top: 15px;
-    width: 95%; /* Ensure the feedback section matches the input fields' width */
-    margin: 0 auto; /* Center it within the container */
+    /* Ensure the feedback section matches the input fields' width */
+    margin: 0 auto;
+    /* Center it within the container */
 }
 
 #strengthMessage {
     font-weight: bold;
-    margin-bottom: 10px; /* Spacing between strength message and progress bar */
+    margin-bottom: 10px;
+    /* Spacing between strength message and progress bar */
 }
 
 .progress-bar {
-    width: 100%; /* Ensure progress bar takes the full width of the parent container */
+    width: 100%;
+    /* Ensure progress bar takes the full width of the parent container */
     background-color: #e0e0e0;
     border-radius: 5px;
     margin-top: 5px;
-    height: 15px; /* Increased height */
+    height: 15px;
+    /* Increased height */
 }
 
 .progress {
@@ -159,43 +192,56 @@ h1 {
 
 /* Fieldsets and Legends */
 fieldset {
-    border: 1px solid #b0b0b0; /* Grey border */
+    border: 1px solid #b0b0b0;
+    /* Grey border */
     border-radius: 5px;
-    padding: 15px; /* Added padding */
-    margin-bottom: 20px; /* Space between fieldsets */
+    padding: 15px;
+    /* Added padding */
+    margin-bottom: 20px;
+    /* Space between fieldsets */
 }
 
 legend {
     padding: 0 10px;
     font-weight: bold;
-    color: #2C3E50; /* Matching dark blue */
-    font-size: 1.1rem; /* Adjust font size */
+    color: #2C3E50;
+    /* Matching dark blue */
+    font-size: 1.1rem;
+    /* Adjust font size */
 }
 
 button.submit-button {
-    flex: 1; /* Make the button take equal space */
+    flex: 1;
+    /* Make the button take equal space */
     padding: 12px 20px;
-    background-color: #2C3E50; /* Dark blue */
+    background-color: #2C3E50;
+    /* Dark blue */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 3D effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* 3D effect */
     font-size: 1rem;
 }
 
 button.submit-button:hover {
-    background-color: #1A252F; /* Slightly darker blue on hover */
-    transform: translateY(-2px); /* Lifting effect */
+    background-color: #1A252F;
+    /* Slightly darker blue on hover */
+    transform: translateY(-2px);
+    /* Lifting effect */
 }
 
 /* Password Display Styling */
 .password-display {
-    display: flex; /* Display elements side-by-side */
-    align-items: center; /* Center vertically */
+    display: flex;
+    /* Display elements side-by-side */
+    align-items: center;
+    /* Center vertically */
     margin-top: 20px;
-    gap: 10px; /* Space between the text and the password box */
+    gap: 10px;
+    /* Space between the text and the password box */
     font-weight: bold;
 }
 
@@ -212,26 +258,37 @@ button.submit-button:hover {
 
 /* Styling for the generator section */
 .generator-section {
-    display: flex; /* Use flex to line up elements horizontally */
-    gap: 10px; /* Space between the button and the password box */
-    align-items: center; /* Vertically center align items */
-    justify-content: center; /* Center the items in the fieldset */
-    margin-top: 20px; /* Add some space at the top */
+    display: flex;
+    /* Use flex to line up elements horizontally */
+    gap: 10px;
+    /* Space between the button and the password box */
+    align-items: center;
+    /* Vertically center align items */
+    justify-content: center;
+    /* Center the items in the fieldset */
+    margin-top: 20px;
+    /* Add some space at the top */
 }
 
 /* Styling for the generated password box */
 .generated-password-box {
-    flex: 2; /* Make the password box take double the space of the button */
-    border: 1px solid #b0b0b0; /* Medium grey */
+    flex: 2;
+    /* Make the password box take double the space of the button */
+    border: 1px solid #b0b0b0;
+    /* Medium grey */
     padding: 10px;
-    background-color: #f9f9f9; /* Slightly off-white */
-    min-width: 200px; /* Minimum width for the password box */
+    background-color: #f9f9f9;
+    /* Slightly off-white */
+    min-width: 200px;
+    /* Minimum width for the password box */
     border-radius: 5px;
     text-align: center;
     font-size: 1rem;
     color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a slight shadow */
-    word-break: break-all; /* Ensures long passwords wrap inside the box */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Adding a slight shadow */
+    word-break: break-all;
+    /* Ensures long passwords wrap inside the box */
 }
 
 
@@ -245,17 +302,20 @@ button.submit-button:hover {
 
 /* Footer Styling */
 footer {
-    background-color: #2C3E50; /* Matching dark blue */
+    background-color: #2C3E50;
+    /* Matching dark blue */
     color: white;
     text-align: center;
     padding: 10px 0;
     position: relative;
     width: 100%;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Adding a slight shadow above */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    /* Adding a slight shadow above */
 }
 
 footer p {
-    margin: 0; /* Remove any default margin */
+    margin: 0;
+    /* Remove any default margin */
 }
 
 
@@ -285,7 +345,8 @@ footer p {
 
 /* Styling for progress bars */
 progress::-webkit-progress-bar {
-    background-color: #f4f4f4; /* Light grey background for progress bar */
+    background-color: #f4f4f4;
+    /* Light grey background for progress bar */
     border-radius: 5px;
 }
 
@@ -296,27 +357,32 @@ progress::-webkit-progress-value {
 
 /* JavaScript-controlled progress bar colors for gradient effect */
 .low-score {
-    background: linear-gradient(to right, red, #ffb300); /* Red to yellow */
+    background: linear-gradient(to right, red, #ffb300);
+    /* Red to yellow */
 }
 
 .medium-score {
-    background: linear-gradient(to right, #ffb300, #ffd700); /* Yellow */
+    background: linear-gradient(to right, #ffb300, #ffd700);
+    /* Yellow */
 }
 
 .high-score {
-    background: linear-gradient(to right, #66bb6a, green); /* Light green to green */
+    background: linear-gradient(to right, #66bb6a, green);
+    /* Light green to green */
 }
 
 /* Background Gradient for Body */
 body {
-    background: linear-gradient(to bottom, #2C3E50, #34495E); /* Dark blue gradient */
+    background: linear-gradient(to bottom, #2C3E50, #34495E);
+    /* Dark blue gradient */
 }
 
 /* Enhanced Button Hover */
 button.submit-button:hover {
     background-color: #1A252F;
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    /* More prominent shadow */
 }
 
 /* Custom Password Strength Gradient */
@@ -356,8 +422,10 @@ button.submit-button:hover {
 /* Enhanced Password Display Box */
 .generated-password-box {
     flex: 2;
-    border: 2px solid #2C3E50; /* Dark blue */
-    background-color: #e8f0fe; /* Light blue to make it stand out */
+    border: 2px solid #2C3E50;
+    /* Dark blue */
+    background-color: #e8f0fe;
+    /* Light blue to make it stand out */
     font-weight: bold;
     font-size: 1.1rem;
 }
@@ -407,10 +475,13 @@ button.submit-button:hover {
 .dropdown-feedback {
     margin-top: 10px;
     margin-bottom: 20px;
-    background-color: #f9f9f9; /* Light background */
-    border: 1px solid #ccc; /* Light grey border */
+    background-color: #f9f9f9;
+    /* Light background */
+    border: 1px solid #ccc;
+    /* Light grey border */
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Slight shadow */
     padding: 15px;
     width: 100%;
 }
@@ -424,12 +495,79 @@ button.submit-button:hover {
 .dropdown-feedback li {
     margin-bottom: 8px;
     font-weight: bold;
-    color: #2C3E50; /* Dark blue */
+    color: #2C3E50;
+    /* Dark blue */
 }
 
 .dropdown-feedback li:last-child {
     margin-bottom: 0;
 }
 
+#passwordSuggestions {
+    border: 2px solid #f44336;
+    /* Red border */
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #ffebee;
+    /* Light red background */
+    border-radius: 10px;
+    text-align: center;
+}
 
+#passwordSuggestions.good {
+    border: 2px solid #42dd44;
+    /* Red border */
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #d4edda;
+    /* Light red background */
+    border-radius: 10px;
+    text-align: center;
+}
+
+.suggestion {
+    color: #d32f2f;
+    /* Darker red text */
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.noSuggestion {
+    color: #2ea62e;
+    /* Darker red text */
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style for the paragraph element with id entropyPoints */
+#entropyPoints, #timeToSolve {
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    /* margin: 10px 0; */
+    text-align: center;
+    font-weight: bold;
+    padding: 15px;
+}
+
+/* Change background color based on entropy points */
+#entropyPoints.low {
+    border: 2px solid #f44336;
+    color:#d32f2f; /* Red color for low entropy points */
+    background-color: #ffebee;; /* Light red background */
+}
+
+#entropyPoints.medium {
+    border: 2px solid #c89651;
+    color: #b67f31; /* Orange color for medium entropy points */
+    background-color: #ffe5b4; /* Light orange background */
+}
+
+#entropyPoints.high {
+    border: 2px solid #42dd44;
+    color: #2ea62e; /* Green color for high entropy points */
+    background-color: #d4edda; /* Light green background */
+}
 

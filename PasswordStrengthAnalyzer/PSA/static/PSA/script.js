@@ -1,18 +1,80 @@
-let checkedPassword = {"": false};
+let checkedPassword = { "": false };
+let checkedSocial = {"": false};
+const suggestions = {
+    "lowerCase": "Your password lacks lower case letters.",
+    "upperCase": "Your password lacks upper case letters.",
+    "number": "Your password lacks numbers.",
+    "specialCharacter": "Your password lacks special characters.",
+    "commonPassword": "Your password matches with a common password.",
+    "name": "Your password contains your name.",
+    "username": "You have included your username or email in your password.",
+    "birthday": "Your password contains your birthday.",
+    "additionalInformation": "Your password includes social engineering data about you such as your parent's name, pet's name, favorite color,...",
+    "pattern": "Your password has an easily recogizable pattern.",
+    "length": "Your password is not long enough.",
+} 
+let numOfSuggestions = 0;
 
-function timeToSolve(password){
+function addSuggestion(suggestion) {
+    const suggestionBox = document.getElementById("passwordSuggestions"); 
+    const suggestionElement = document.createElement("div"); 
+    suggestionElement.className = "suggestion"; 
+    suggestionElement.innerText = suggestion; 
+    suggestionBox.classList.remove("good");
+    suggestionBox.appendChild(suggestionElement);
+    numOfSuggestions++;
+}
+function noSuggestion(){
+    const suggestionBox = document.getElementById("passwordSuggestions"); 
+    const suggestionElement = document.createElement("div"); 
+    suggestionElement.classList.add("noSuggestion");
+    suggestionBox.classList.add("good");
+    suggestionElement.innerText = "Your password is good!!!"; 
+    suggestionBox.appendChild(suggestionElement);
+}
+function removeAllSuggestion() {
+    const suggestionBox = document.getElementById("passwordSuggestions");
+    suggestionBox.innerText = ""
+    numOfSuggestions = 0;
+}
+
+function suggest(password, information) {
+    let birthday = information["birthday"];
+
+    if (password.length < 12) addSuggestion(suggestions.length);
+    if (!hasLower(password)) addSuggestion(suggestions.lowerCase);
+    if (!hasUpper(password)) addSuggestion(suggestions.upperCase);
+    if (!hasNumber(password)) addSuggestion(suggestions.number);
+    if (!hasSpecial(password)) addSuggestion(suggestions.specialCharacter);
+    if (repetitiveTest(password) >= 3 || continuousTest(password) >= 3) addSuggestion(suggestions.pattern);
+    if (information.isACommonPassword) addSuggestion(suggestions.commonPassword);
+    if (hasBirthdate(password, birthday)) addSuggestion(suggestions.birthday);
+    if (information.SACheck) addSuggestion(suggestions.additionalInformation);
+    for (let name of information.names){
+        if (password.toLowerCase().includes(name) && name.length > 0){
+            addSuggestion(suggestions.name);
+            break;
+        }
+    }
+    if ((password.toLowerCase().includes(information.username) && information.username.length > 0) || (password.toLowerCase().includes(information.email) && information.email.length > 0)) addSuggestion(suggestions.username);
+    if (numOfSuggestions == 0) {
+        noSuggestion();
+    }
+}
+
+function timeToSolve(password) {
     let seconds = secondsToSolve(password);
-    if (seconds < 60) return seconds + " seconds";
-    let minutes = Math.floor(seconds/60);
-    if (minutes < 60) return minutes + " minutes";
-    let hours = Math.floor(seconds/360);
-    if (hours < 24) return hours + " hours";
-    let days = Math.floor(hours/24);
-    if (days < 30) return days + " days"
-    let months = Math.floor(days/30);
-    if (months < 12) return months + " months"
-    let years = Math.floor(months/12);
-    return years + " years"
+    if (seconds < 60) return seconds.toFixed(4) + " seconds";
+    let minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return Math.round(minutes) + " minutes";
+    let hours = Math.floor(seconds / 360);
+    if (hours < 24) return Math.round(hours) + " hours";
+    let days = Math.floor(hours / 24);
+    if (days < 30) return Math.round(days) + " days"
+    let months = Math.floor(days / 30);
+    if (months < 12) return Math.round(months) + " months"
+    let years = Math.floor(months / 12);
+    return Math.round(years) + " years"
 }
 
 async function checkCommonPassword(password) {
@@ -28,49 +90,85 @@ async function checkCommonPassword(password) {
             console.error('There was a problem with the fetch operation:', error);
         }
     }
+    /*
     const result = checkedPassword[password] ? "Password is a common password" : "Password is not common";
+    console.log(result);
     document.getElementById('checkCommon').textContent = result;
+    */
     return checkedPassword[password];
 }
 
+async function checkSAData(password) {
+    const url = `/checkSocial/${password}/`;
+    if (checkedSocial[password] != undefined) return checkedSocial[password];
+    if (password.length > 0) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+            const data = await response.json();
+            checkedSocial[password] = data.found;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    /*
+    const result = checkedPassword[password] ? "Password is a common password" : "Password is not common";
+    console.log(result);
+    document.getElementById('checkCommon').textContent = result;
+    */
+    return checkedSocial[password];
+}
+
 let debounceTimer;
-async function checkPasswordStrengthWithDebounce(){
+async function checkPasswordStrengthWithDebounce() {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(checkPasswordStrength,100);
+    debounceTimer = setTimeout(checkPasswordStrength, 200);
 }
 async function checkPasswordStrength() {
+
     const password = document.getElementById('password').value;
-    // const strengthIndicator = document.getElementById('strengthIndicator');
-    // const suggestions = document.getElementById('suggestions');
-    // const progressBar = document.getElementById('progress');
     const entropyPoints = document.getElementById('entropyPoints');
     const timeToSolveElement = document.getElementById('timeToSolve');
-    const fullName = document.getElementById("fullName").value.trim();
-    const username = document.getElementById("username").value.trim();
+    const fullName = document.getElementById("fullName").value.trim().toLowerCase();
+    const username = document.getElementById("username").value.trim().toLowerCase();
+    const birthday = document.getElementById("dob").value;
+    const email = document.getElementById("email").value.split("@")[0].toLowerCase();
 
     //List of score
+    let SACheck = await checkSAData(password);
+    let SAScore = SACheck ? 0 : 100;
     const lengthScore = password.length >= 12 ? 100 : (password.length / 12) * 100;
     let varietyScore = 0;
-    let commonPasswordScore = await checkCommonPassword(password) ? 0 : 100;
+    let isACommonPassword = await checkCommonPassword(password);
+    let commonPasswordScore = isACommonPassword ? 0 : 100;
     let patternScore = 100;
     let leakedInformationScore = 100;
+    let information = {
+        "birthday": birthday,
+        "isACommonPassword": isACommonPassword,
+        "names": [],
+        "username": username,
+        "email": email,
+        "SACheck": SACheck,
 
-    //Check if there is name in the password
-    for (let name of fullName.split(' ')){
-       if (name.length > 0 && password.toLowerCase().indexOf(name.toLowerCase()) != -1) leakedInformationScore = 0;
+    };
+    //Check if there is name or username or birthday in the password
+    for (let name of fullName.split(' ')) {
+        if (name.length > 0 && password.toLowerCase().indexOf(name.toLowerCase()) != -1) leakedInformationScore = 0;
+        information.names.push(name);
     }
     if (username.length > 0 && password.toLowerCase().indexOf(username.toLowerCase()) != -1) leakedInformationScore = 0;
+    if (hasBirthdate(password, birthday)) leakedInformationScore = 0;
 
-    console.log(password + " and " + leakedInformationScore);
     // Calculate variety score
-    if (hasLower(password)) varietyScore+=25;
-    if (hasNumber(password)) varietyScore+=25;
-    if (hasUpper(password)) varietyScore+=25;
-    if (hasSpecial(password)) varietyScore+=25;
+    if (hasLower(password)) varietyScore += 25;
+    if (hasNumber(password)) varietyScore += 25;
+    if (hasUpper(password)) varietyScore += 25;
+    if (hasSpecial(password)) varietyScore += 25;
 
     // Calculate patternScore
-    if (repetitiveTest(password) >= 3) patternScore -=50;
-    if (continuousTest(password) >= 3) patternScore -=50;
+    if (repetitiveTest(password) >= 3) patternScore -= 50;
+    if (continuousTest(password) >= 3) patternScore -= 50;
 
     // checkCommonPassword(password);
     let strength = 0;
@@ -78,42 +176,30 @@ async function checkPasswordStrength() {
     strength = entropy(password);
 
     if (repetitiveTest(password) > 3 || continuousTest(password) > 3 || !basicTest(password)) strength = 0;
-    entropyPoints.textContent = `Entropy points: ${entropy(password)}`;
-    /*
-    strength = Math.floor(strength/20);
+    entropyPoints.textContent = `Entropy points: ${Math.round(entropy(password)*100)/100}`;
+    if (entropy(password) > 80){
+        entropyPoints.className = "";
+        entropyPoints.classList.add("high");
+    } else if (entropy(password) > 50){
+        entropyPoints.className = "";
+        entropyPoints.classList.add("medium");
+    } else {
+        entropyPoints.className = "";
+        entropyPoints.classList.add("low");
+    }
 
-    if (strength >= 4) strength = 4;
-    console.log(strength);
-    // Define messages, colors, and progress widths based on strength levels
-    const strengthLevels = [
-        { text: 'Very Weak', color: 'red', width: '20%', suggestion: 'Add more characters and use uppercase letters, numbers, and symbols or you password has continous pattern.' },
-        { text: 'Weak', color: 'orange', width: '40%', suggestion: 'Include uppercase letters, numbers, and symbols.' },
-        { text: 'Moderate', color: 'yellow', width: '60%', suggestion: 'Try using more unique characters and avoid sequences.' },
-        { text: 'Strong', color: 'lightgreen', width: '80%', suggestion: '' },
-        { text: 'Very Strong', color: 'green', width: '100%', suggestion: '' }
-    ];
-
-    // Fetch the current strength level
-    const currentLevel = strengthLevels[strength];
-
-    // Update strength message
-    strengthIndicator.textContent = currentLevel.text;
-    strengthIndicator.style.color = currentLevel.color;
-
-    // Update suggestions
-    suggestions.textContent = currentLevel.suggestion;
-
-    // Update the progress bar
-    progressBar.style.width = currentLevel.width;
-    progressBar.style.backgroundColor = currentLevel.color;
-    */
     updateProgressBar('lengthProgress', lengthScore, 'lengthCheck');
     updateProgressBar('varietyProgress', varietyScore, 'varietyCheck');
     updateProgressBar('commonPasswordProgress', commonPasswordScore, 'commonPasswordCheck');
     updateProgressBar('patternProgress', patternScore, 'patternCheck');
     updateProgressBar('leakedInformationProgress', leakedInformationScore, 'leakedInformationCheck');
+    updateProgressBar('socialEngProgress', SAScore, 'socialEngCheck');
 
     timeToSolveElement.textContent = "It takes " + timeToSolve(password) + " to solve by bruteforce";
+
+    console.log(information);
+    removeAllSuggestion();
+    suggest(password, information);
 }
 
 
